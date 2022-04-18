@@ -2,11 +2,15 @@ package com.bookapp.design.controller;
 
 import com.bookapp.design.model.BookList;
 import com.bookapp.design.repository.BookRepo;
+import com.bookapp.design.services.RegService;
+import net.bytebuddy.description.method.MethodDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +22,7 @@ public class BookController {
 
     @Autowired
     BookRepo bookrepo;
-    @GetMapping("/favlist")
+    @GetMapping("/getfavlist")
     public ResponseEntity<List<BookList>> getAllBooks(@RequestParam(required = false) String title) {
         try {
             List<BookList> booklist = new ArrayList<BookList>();
@@ -35,15 +39,15 @@ public class BookController {
         }
     }
 
-//    @PostMapping("/favlist")
-//    public ResponseEntity<BookList> createBookList(@RequestBody BookList booklist) {
-//        try {
-//            BookList _booklist = bookrepo.save(new BookList(booklist.getId(),booklist.getTitle(), booklist.getAuthor(), booklist.getDescription(), booklist.getImage(), booklist.getLang(), booklist.getDate()));
-//            return new ResponseEntity<>(_booklist,HttpStatus.CREATED);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @PostMapping("/postfavlist")
+    public ResponseEntity<BookList> createBookList(@RequestBody BookList booklist) {
+        try {
+            BookList _booklist = bookrepo.save(new BookList(booklist.getId(),booklist.getTitle(), booklist.getText()));
+            return new ResponseEntity<>(_booklist,HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PostMapping("/addBook")
     public String saveBook(@RequestBody BookList book) {
@@ -66,4 +70,5 @@ public class BookController {
         bookrepo.deleteById(id);
         return "book deleted with id: "+id;
     }
+
 }
