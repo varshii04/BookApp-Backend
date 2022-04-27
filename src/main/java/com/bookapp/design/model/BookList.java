@@ -13,7 +13,7 @@ public class BookList {
     private String id;
     private String title;
     private String text;
-//    private String description;
+    private String description;
 //    private String image;
 //    private String lang;
 //    private String date;
@@ -21,11 +21,11 @@ public class BookList {
     public BookList() {
     }
 
-    public BookList( String id, String title, String text) {
+    public BookList( String id, String title, String text, String description) {
         this.id = id;
         this.title = title;
         this.text = text;
-//        this.description = description;
+        this.description = description;
 //        this.image = image;
 //        this.lang = lang;
 //        this.date = date;
@@ -55,13 +55,13 @@ public class BookList {
         this.text = text;
     }
 
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 //
 //    public String getImage() {
 //        return image;

@@ -42,7 +42,7 @@ public class BookController {
     @PostMapping("/postfavlist")
     public ResponseEntity<BookList> createBookList(@RequestBody BookList booklist) {
         try {
-            BookList _booklist = bookrepo.save(new BookList(booklist.getId(),booklist.getTitle(), booklist.getText()));
+            BookList _booklist = bookrepo.save(new BookList(booklist.getId(),booklist.getTitle(), booklist.getText(), booklist.getDescription()));
             return new ResponseEntity<>(_booklist,HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
